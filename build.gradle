@@ -30,7 +30,7 @@ ext {
     minSdkVersion = 14
     targetSdkVersion = 26
     compileSdkVersion = 26
-    buildToolsVersion = '26.0.1'
+    buildToolsVersion = '26.0.2'
 
     // App dependencies
     supportLibraryVersion = '26.1.0'
@@ -45,5 +45,6 @@ ext {
     rxandroidVersion = '2.0.1'
     sqlbriteVersion = '2.0.0'
     rxKotlinVersion = '2.1.0'
-    architectureComponentsVersion = "1.0.0-alpha9"
+    architectureComponentsVersion = "1.0.0-alpha9-1"
+    daggerVersion = '2.11'
 }

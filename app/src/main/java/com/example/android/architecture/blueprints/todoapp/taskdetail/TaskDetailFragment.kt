@@ -28,11 +28,12 @@ import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskActivity
 import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskFragment
 import com.example.android.architecture.blueprints.todoapp.util.showSnackBar
+import javax.inject.Inject
 
 /**
  * Main UI for the task detail screen.
  */
-class TaskDetailFragment : Fragment(), TaskDetailContract.View {
+class TaskDetailFragment @Inject constructor() : Fragment(), TaskDetailContract.View {
 
     private lateinit var detailTitle: TextView
 
@@ -40,7 +41,7 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
 
     private lateinit var detailCompleteStatus: CheckBox
 
-    override lateinit var presenter: TaskDetailContract.Presenter
+    override @Inject lateinit var presenter: TaskDetailContract.Presenter
 
     override var isActive: Boolean = false
         get() = isAdded
@@ -56,7 +57,7 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.taskdetail_frag, container, false)
         setHasOptionsMenu(true)
         with(root) {

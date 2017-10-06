@@ -61,6 +61,8 @@ class StatisticsActivity : DaggerAppCompatActivity() {
             replaceFragmentInActivity(it, R.id.contentFrame)
         }
 
+        replaceFragmentInActivity(statisticsFragment,R.id.contentFrame)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -29,7 +29,7 @@ import javax.inject.Singleton
 @Singleton
 class TasksRemoteDataSource @Inject constructor() : TasksDataSource {
 
-    private val SERVICE_LATENCY_IN_MILLIS = 5000L
+    private val SERVICE_LATENCY_IN_MILLIS = 500L
 
     private var TASKS_SERVICE_DATA = LinkedHashMap<String, Task>(2)
 

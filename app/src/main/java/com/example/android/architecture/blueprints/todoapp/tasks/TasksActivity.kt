@@ -67,14 +67,6 @@ class TasksActivity : DaggerAppCompatActivity() {
             tasksPresenter.currentFiltering = savedInstanceState.getSerializable(CURRENT_FILTERING_KEY)
                     as TasksFilterType
         }
-//        tasksPresenter = TasksPresenter(Injection.provideTasksRepository(applicationContext),
-//                tasksFragment).apply {
-//            // Load previously saved state, if available.
-//            if (savedInstanceState != null) {
-//                currentFiltering = savedInstanceState.getSerializable(CURRENT_FILTERING_KEY)
-//                        as TasksFilterType
-//            }
-//        }
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {

@@ -21,24 +21,24 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * Listens to user actions from the UI ([TaskDetailFragment]), retrieves the data and updates
  * the UI as required.
  */
-class TaskDetailPresenter(
-        private val taskId: String,
-        private val tasksRepository: TasksRepository,
-        private val taskDetailView: TaskDetailContract.View
+class TaskDetailPresenter @Inject constructor(
+        var taskId: String,
+        private val tasksRepository: TasksRepository
 ) : TaskDetailContract.Presenter {
-    override fun subscribe(view: TaskDetailContract.View) {
-        openTask()
-    }
 
     private val compositeDisposable = CompositeDisposable()
+    private lateinit var taskDetailView: TaskDetailContract.View
 
-    init {
+    override fun subscribe(view: TaskDetailContract.View) {
+        taskDetailView = view
         taskDetailView.presenter = this
+        openTask()
     }
 
     override fun unSubscribe() {

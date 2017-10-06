@@ -16,7 +16,13 @@ android {
 
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         flavorDimensions "default"
+        splits.abi.enable = false
+        splits.density.enable = false
+        aaptOptions.cruncherEnabled = false
+    }
 
+    dexOptions {
+        preDexLibraries = true
     }
 
     buildTypes {

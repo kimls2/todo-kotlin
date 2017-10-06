@@ -17,7 +17,7 @@
 package com.example.android.architecture.blueprints.todoapp.addedittask
 
 import com.example.android.architecture.blueprints.todoapp.data.Task
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
+import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
 import java.util.*
 import javax.inject.Inject
 
@@ -33,8 +33,8 @@ import javax.inject.Inject
  * @param isDataMissing whether data needs to be loaded or not (for config changes)
  */
 class AddEditTaskPresenter @Inject constructor(
-        private val taskId: String?,
-        private val tasksRepository: TasksDataSource,
+        val taskId: String?,
+        private val tasksRepository: TasksRepository,
         override var isDataMissing: Boolean
 ) : AddEditTaskContract.Presenter {
 

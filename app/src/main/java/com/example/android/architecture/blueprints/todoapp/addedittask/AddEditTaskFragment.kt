@@ -20,20 +20,23 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.android.architecture.blueprints.todoapp.R
+import com.example.android.architecture.blueprints.todoapp.di.ActivityScoped
 import com.example.android.architecture.blueprints.todoapp.util.showSnackBar
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 /**
  * Main UI for the add task screen. Users can enter a task title and description.
  */
-class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
+@ActivityScoped
+class AddEditTaskFragment @Inject constructor() : DaggerFragment(), AddEditTaskContract.View {
 
-    override lateinit var presenter: AddEditTaskContract.Presenter
+    override @Inject lateinit var presenter: AddEditTaskContract.Presenter
     override var isActive = false
         get() = isAdded
 
@@ -62,7 +65,7 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.addtask_frag, container, false)
         with(root) {
             title = findViewById(R.id.add_task_title)

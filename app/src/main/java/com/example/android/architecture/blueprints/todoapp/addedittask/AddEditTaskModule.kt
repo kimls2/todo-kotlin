@@ -13,19 +13,12 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class AddEditTaskModule {
 
-    @FragmentScoped
-    @ContributesAndroidInjector
-    abstract fun addEditTaskFragment(): AddEditTaskFragment
-
-    @ActivityScoped
-    @Binds
-    abstract fun taskPresenter(presenter: AddEditTaskPresenter): AddEditTaskContract.Presenter
-
     @Module
     companion object {
         @JvmStatic
         @Provides
         @ActivityScoped
+        @android.support.annotation.Nullable
         fun provideTaskId(activity: AddEditTaskActivity): String? {
             return activity.intent.getStringExtra(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID)
         }
@@ -38,4 +31,12 @@ abstract class AddEditTaskModule {
         }
 
     }
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract fun addEditTaskFragment(): AddEditTaskFragment
+
+    @ActivityScoped
+    @Binds
+    abstract fun taskPresenter(presenter: AddEditTaskPresenter): AddEditTaskContract.Presenter
 }

@@ -17,18 +17,20 @@
 package com.example.android.architecture.blueprints.todoapp.addedittask
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import com.example.android.architecture.blueprints.todoapp.Injection
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.util.replaceFragmentInActivity
 import com.example.android.architecture.blueprints.todoapp.util.setupActionBar
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
 /**
  * Displays an add or edit task screen.
  */
-class AddEditTaskActivity : AppCompatActivity() {
+class AddEditTaskActivity : DaggerAppCompatActivity() {
 
-    private lateinit var addEditTaskPresenter: AddEditTaskPresenter
+    @Inject lateinit var taskId: String
+    @Inject lateinit var addEditTaskPresenter: AddEditTaskPresenter
+    var isDataMissing = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,9 +57,11 @@ class AddEditTaskActivity : AppCompatActivity() {
 
 
         // Create the presenter
-        addEditTaskPresenter = AddEditTaskPresenter(taskId,
-                Injection.provideTasksRepository(applicationContext), addEditTaskFragment,
-                shouldLoadDataFromRepo)
+//        addEditTaskPresenter = AddEditTaskPresenter(taskId,
+//                Injection.provideTasksRepository(applicationContext), addEditTaskFragment,
+//                shouldLoadDataFromRepo)
+
+        restoreState(savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -70,6 +74,14 @@ class AddEditTaskActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    private fun restoreState(savedInstanceState: Bundle?) {
+        // Prevent the presenter from loading data from the repository if this is a config change.
+        if (savedInstanceState != null) {
+            // Data might not have loaded when the config change happen, so we saved the state.
+            isDataMissing = savedInstanceState.getBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY)
+        }
     }
 
     companion object {

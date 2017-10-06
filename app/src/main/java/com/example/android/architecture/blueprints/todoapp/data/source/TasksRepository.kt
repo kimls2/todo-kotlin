@@ -18,6 +18,8 @@ package com.example.android.architecture.blueprints.todoapp.data.source
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import io.reactivex.Flowable
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Concrete implementation to load tasks from the data sources into a cache.
@@ -27,9 +29,10 @@ import java.util.*
  * obtained from the server, by using the remote data source only if the local database doesn't
  * exist or is empty.
  */
-class TasksRepository(
-        val tasksRemoteDataSource: TasksDataSource,
-        val tasksLocalDataSource: TasksDataSource
+@Singleton
+class TasksRepository @Inject constructor(
+        @Remote val tasksRemoteDataSource: TasksDataSource,
+        @Local val tasksLocalDataSource: TasksDataSource
 ) : TasksDataSource {
     var cachedTasks: LinkedHashMap<String, Task> = LinkedHashMap()
     var cacheIsDirty = false

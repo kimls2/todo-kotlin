@@ -31,14 +31,14 @@ class TaskDetailPresenter(
         private val tasksRepository: TasksRepository,
         private val taskDetailView: TaskDetailContract.View
 ) : TaskDetailContract.Presenter {
-
-    private val compositeDisposable = CompositeDisposable()
-    init {
-        taskDetailView.presenter = this
+    override fun subscribe(view: TaskDetailContract.View) {
+        openTask()
     }
 
-    override fun subscribe() {
-        openTask()
+    private val compositeDisposable = CompositeDisposable()
+
+    init {
+        taskDetailView.presenter = this
     }
 
     override fun unSubscribe() {

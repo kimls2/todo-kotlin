@@ -33,5 +33,5 @@ interface StatisticsContract {
         fun showLoadingStatisticsError()
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter<View>
 }

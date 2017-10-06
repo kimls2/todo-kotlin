@@ -28,15 +28,19 @@ import android.widget.*
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskActivity
 import com.example.android.architecture.blueprints.todoapp.data.Task
+import com.example.android.architecture.blueprints.todoapp.di.ActivityScoped
 import com.example.android.architecture.blueprints.todoapp.taskdetail.TaskDetailActivity
 import com.example.android.architecture.blueprints.todoapp.util.showSnackBar
 import java.util.*
+import javax.inject.Inject
 
 /**
  * Display a grid of [Task]s. User can choose to view all, active or completed tasks.
  */
-class TasksFragment : Fragment(), TasksContract.View {
-    override lateinit var presenter: TasksContract.Presenter
+@ActivityScoped
+class TasksFragment @Inject constructor() : Fragment(), TasksContract.View {
+
+    override @Inject lateinit var presenter: TasksContract.Presenter
 
     override var isActive: Boolean = false
         get() = isAdded
@@ -69,7 +73,7 @@ class TasksFragment : Fragment(), TasksContract.View {
 
     override fun onResume() {
         super.onResume()
-        presenter.subscribe()
+        presenter.subscribe(this)
     }
 
     override fun onPause() {

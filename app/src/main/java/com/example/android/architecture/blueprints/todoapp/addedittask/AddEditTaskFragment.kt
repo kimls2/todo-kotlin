@@ -43,7 +43,7 @@ class AddEditTaskFragment : Fragment(), AddEditTaskContract.View {
 
     override fun onResume() {
         super.onResume()
-        presenter.subscribe()
+        presenter.subscribe(this)
     }
 
     override fun onPause() {

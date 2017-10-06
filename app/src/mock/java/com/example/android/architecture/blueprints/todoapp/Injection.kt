@@ -18,9 +18,7 @@ package com.example.android.architecture.blueprints.todoapp
 import android.content.Context
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
-import com.example.android.architecture.blueprints.todoapp.data.source.local.TasksDao
 import com.example.android.architecture.blueprints.todoapp.data.source.local.TasksLocalDataSource
-import com.example.android.architecture.blueprints.todoapp.data.source.local.ToDoDatabase
 import com.example.android.architecture.blueprints.todoapp.data.source.remote.TasksRemoteDataSource
 
 /**
@@ -32,14 +30,7 @@ object Injection {
 
     @JvmStatic
     fun provideTasksRepository(context: Context): TasksRepository {
-        return TasksRepository.getInstance(TasksRemoteDataSource,
-                TasksLocalDataSource.getInstance(provideTasksDao(context)))
+        return TasksRepository.getInstance(TasksRemoteDataSource(),
+                TasksLocalDataSource.getInstance(context))
     }
-
-    @JvmStatic
-    private fun provideTasksDao(context: Context): TasksDao {
-        val db = ToDoDatabase.getInstance(context.applicationContext)
-        return db.taskDao()
-    }
-
 }

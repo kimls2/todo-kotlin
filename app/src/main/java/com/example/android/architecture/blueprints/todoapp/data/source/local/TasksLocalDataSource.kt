@@ -15,16 +15,20 @@
  */
 package com.example.android.architecture.blueprints.todoapp.data.source.local
 
+import android.content.Context
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * Concrete implementation of a data source as a db.
  */
-class TasksLocalDataSource private constructor(private val tasksDao: TasksDao) : TasksDataSource {
+class TasksLocalDataSource @Inject constructor(context: Context) : TasksDataSource {
+
+    private val tasksDao: TasksDao = ToDoDatabase.getInstance(context).taskDao()
 
     override fun getTasks(): Flowable<List<Task>> {
         return tasksDao.getTasks()
@@ -91,7 +95,7 @@ class TasksLocalDataSource private constructor(private val tasksDao: TasksDao) :
         private var INSTANCE: TasksLocalDataSource? = null
 
         @JvmStatic
-        fun getInstance(tasksDao: TasksDao) =
-                INSTANCE ?: TasksLocalDataSource(tasksDao).apply { INSTANCE = this }
+        fun getInstance(context: Context) =
+                INSTANCE ?: TasksLocalDataSource(context).apply { INSTANCE = this }
     }
 }

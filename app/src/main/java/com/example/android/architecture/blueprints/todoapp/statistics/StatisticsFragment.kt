@@ -21,15 +21,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.android.architecture.blueprints.todoapp.R
+import com.example.android.architecture.blueprints.todoapp.di.ActivityScoped
 import kotlinx.android.synthetic.main.statistics_frag.*
+import javax.inject.Inject
 
 /**
  * Main UI for the statistics screen.
  */
-class StatisticsFragment : Fragment(), StatisticsContract.View {
+@ActivityScoped
+class StatisticsFragment @Inject constructor() : Fragment(), StatisticsContract.View {
 
 
-    override lateinit var presenter: StatisticsContract.Presenter
+    override @Inject lateinit var presenter: StatisticsContract.Presenter
 
     override val isActive: Boolean
         get() = isAdded
@@ -41,7 +44,7 @@ class StatisticsFragment : Fragment(), StatisticsContract.View {
 
     override fun onResume() {
         super.onResume()
-        presenter.subscribe()
+        presenter.subscribe(this)
     }
 
     override fun setProgressIndicator(active: Boolean) {

@@ -25,22 +25,22 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * Listens to user actions from the UI ([StatisticsFragment]), retrieves the data and updates
  * the UI as required.
  */
-class StatisticsPresenter(
-        private val tasksRepository: TasksRepository,
-        private val statisticsView: StatisticsContract.View
+class StatisticsPresenter @Inject constructor(
+        private val tasksRepository: TasksRepository
 ) : StatisticsContract.Presenter {
+
     private val compositeDisposable = CompositeDisposable()
+    private lateinit var statisticsView: StatisticsContract.View
 
-    init {
+    override fun subscribe(view: StatisticsContract.View) {
+        statisticsView = view
         statisticsView.presenter = this
-    }
-
-    override fun subscribe() {
         loadStatistics()
     }
 

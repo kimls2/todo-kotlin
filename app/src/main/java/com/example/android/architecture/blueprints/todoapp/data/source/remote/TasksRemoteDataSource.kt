@@ -20,13 +20,16 @@ import com.example.android.architecture.blueprints.todoapp.data.source.TasksData
 import io.reactivex.Flowable
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Implementation of the data source that adds a latency simulating network.
  */
-object TasksRemoteDataSource : TasksDataSource {
+@Singleton
+class TasksRemoteDataSource @Inject constructor() : TasksDataSource {
 
-    private const val SERVICE_LATENCY_IN_MILLIS = 5000L
+    private val SERVICE_LATENCY_IN_MILLIS = 5000L
 
     private var TASKS_SERVICE_DATA = LinkedHashMap<String, Task>(2)
 

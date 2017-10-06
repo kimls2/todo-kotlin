@@ -19,6 +19,7 @@ package com.example.android.architecture.blueprints.todoapp.addedittask
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
 import java.util.*
+import javax.inject.Inject
 
 /**
  * Listens to user actions from the UI ([AddEditTaskFragment]), retrieves the data and updates
@@ -31,18 +32,17 @@ import java.util.*
  *
  * @param isDataMissing whether data needs to be loaded or not (for config changes)
  */
-class AddEditTaskPresenter(
+class AddEditTaskPresenter @Inject constructor(
         private val taskId: String?,
         private val tasksRepository: TasksDataSource,
-        private val addTaskView: AddEditTaskContract.View,
         override var isDataMissing: Boolean
 ) : AddEditTaskContract.Presenter {
 
-    init {
-        addTaskView.presenter = this
-    }
+    private lateinit var addTaskView: AddEditTaskContract.View
 
-    override fun subscribe() {
+    override fun subscribe(view: AddEditTaskContract.View) {
+        addTaskView = view
+        addTaskView.presenter = this
         if (taskId != null && isDataMissing) {
             populateTask()
         }

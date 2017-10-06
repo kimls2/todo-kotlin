@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, The Android Open Source Project
+ * Copyright 2016, The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.example.android.architecture.blueprints.todoapp.data.source
 
-package com.example.android.architecture.blueprints.todoapp
+import javax.inject.Qualifier
 
-interface BasePresenter<in V> {
-
-    fun subscribe(view: V)
-
-    fun unSubscribe()
-
-}
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class Local

@@ -47,7 +47,7 @@ class TaskDetailFragment : Fragment(), TaskDetailContract.View {
 
     override fun onResume() {
         super.onResume()
-        presenter.subscribe()
+        presenter.subscribe(this)
     }
 
     override fun onPause() {

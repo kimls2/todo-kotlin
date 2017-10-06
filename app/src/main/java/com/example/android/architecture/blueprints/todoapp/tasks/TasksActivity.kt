@@ -22,27 +22,28 @@ import android.support.design.widget.NavigationView
 import android.support.test.espresso.IdlingResource
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import com.example.android.architecture.blueprints.todoapp.Injection
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.statistics.StatisticsActivity
 import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource
 import com.example.android.architecture.blueprints.todoapp.util.replaceFragmentInActivity
 import com.example.android.architecture.blueprints.todoapp.util.setupActionBar
+import dagger.Lazy
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
-class TasksActivity : AppCompatActivity() {
+class TasksActivity : DaggerAppCompatActivity() {
 
     private val CURRENT_FILTERING_KEY = "CURRENT_FILTERING_KEY"
 
     private lateinit var drawerLayout: DrawerLayout
 
-    private lateinit var tasksPresenter: TasksPresenter
+    @Inject lateinit var tasksPresenter: TasksPresenter
+    @Inject lateinit var taskFragmentProvider: Lazy<TasksFragment>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tasks_act)
-
         // Set up the toolbar.
         setupActionBar(R.id.toolbar) {
             setHomeAsUpIndicator(R.drawable.ic_menu)
@@ -55,20 +56,25 @@ class TasksActivity : AppCompatActivity() {
         }
         setupDrawerContent(findViewById(R.id.nav_view))
 
-        val tasksFragment = supportFragmentManager.findFragmentById(R.id.contentFrame)
-                as TasksFragment? ?: TasksFragment.newInstance().also {
+
+        supportFragmentManager.findFragmentById(R.id.contentFrame)
+                as TasksFragment? ?: taskFragmentProvider.get().also {
             replaceFragmentInActivity(it, R.id.contentFrame)
         }
 
         // Create the presenter
-        tasksPresenter = TasksPresenter(Injection.provideTasksRepository(applicationContext),
-                tasksFragment).apply {
-            // Load previously saved state, if available.
-            if (savedInstanceState != null) {
-                currentFiltering = savedInstanceState.getSerializable(CURRENT_FILTERING_KEY)
-                        as TasksFilterType
-            }
+        if (savedInstanceState != null) {
+            tasksPresenter.currentFiltering = savedInstanceState.getSerializable(CURRENT_FILTERING_KEY)
+                    as TasksFilterType
         }
+//        tasksPresenter = TasksPresenter(Injection.provideTasksRepository(applicationContext),
+//                tasksFragment).apply {
+//            // Load previously saved state, if available.
+//            if (savedInstanceState != null) {
+//                currentFiltering = savedInstanceState.getSerializable(CURRENT_FILTERING_KEY)
+//                        as TasksFilterType
+//            }
+//        }
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {

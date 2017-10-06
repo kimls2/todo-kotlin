@@ -20,34 +20,35 @@ import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTa
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
+import com.example.android.architecture.blueprints.todoapp.di.ActivityScoped
 import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource
-import com.tspoon.traceur.Traceur
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.util.*
+import javax.inject.Inject
 
 /**
  * Listens to user actions from the UI ([TasksFragment]), retrieves the data and updates the
  * UI as required.
  */
-class TasksPresenter(private val tasksRepository: TasksRepository, private val tasksView: TasksContract.View)
+
+@ActivityScoped
+class TasksPresenter @Inject constructor(private val tasksRepository: TasksRepository)
     : TasksContract.Presenter {
 
-    override var currentFiltering = TasksFilterType.ALL_TASKS
+    private lateinit var tasksView: TasksContract.View
 
-    private var firstLoad = true
-    private val compositeDisposable = CompositeDisposable()
-
-    init {
+    override fun subscribe(view: TasksContract.View) {
+        tasksView = view
         tasksView.presenter = this
-        Traceur.enableLogging()
-    }
-
-    override fun subscribe() {
         loadTasks(false)
     }
+
+    override var currentFiltering = TasksFilterType.ALL_TASKS
+    private var firstLoad = true
+    private val compositeDisposable = CompositeDisposable()
 
     override fun unSubscribe() {
         compositeDisposable.clear()

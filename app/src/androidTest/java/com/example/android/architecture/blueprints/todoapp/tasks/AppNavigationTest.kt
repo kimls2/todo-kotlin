@@ -61,7 +61,7 @@ class AppNavigationTest {
         openStatisticsScreen()
 
         // Check that statistics Activity was opened.
-        onView(withId(R.id.statistics)).check(matches(isDisplayed()))
+        onView(withId(R.id.statisticsTv)).check(matches(isDisplayed()))
     }
 
     @Test fun clickOnListNavigationItem_ShowsListScreen() {

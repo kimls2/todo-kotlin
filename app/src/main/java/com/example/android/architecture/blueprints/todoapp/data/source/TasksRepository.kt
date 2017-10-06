@@ -31,7 +31,6 @@ class TasksRepository(
         val tasksRemoteDataSource: TasksDataSource,
         val tasksLocalDataSource: TasksDataSource
 ) : TasksDataSource {
-
     var cachedTasks: LinkedHashMap<String, Task> = LinkedHashMap()
     var cacheIsDirty = false
 
@@ -197,9 +196,7 @@ class TasksRepository(
     private fun getTaskWithId(id: String) = cachedTasks[id]
 
     private inline fun cacheAndPerform(task: Task, perform: (Task) -> Unit) {
-        val cachedTask = Task(task.title, task.description, task.id, task.completed).apply {
-            task.completed
-        }
+        val cachedTask = Task(task.id, task.title, task.description, task.completed)
         cachedTasks.put(cachedTask.id, cachedTask)
         perform(cachedTask)
     }

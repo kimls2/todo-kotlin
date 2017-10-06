@@ -51,7 +51,7 @@ class TasksFragment : Fragment(), TasksContract.View {
     /**
      * Listener for clicks on tasks in the ListView.
      */
-    internal var itemListener: TaskItemListener = object : TaskItemListener {
+    private var itemListener: TaskItemListener = object : TaskItemListener {
         override fun onTaskClick(clickedTask: Task) {
             presenter.openTaskDetails(clickedTask)
         }

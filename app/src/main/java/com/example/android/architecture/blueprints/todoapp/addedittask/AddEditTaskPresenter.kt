@@ -18,6 +18,7 @@ package com.example.android.architecture.blueprints.todoapp.addedittask
 
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
+import java.util.*
 
 /**
  * Listens to user actions from the UI ([AddEditTaskFragment]), retrieves the data and updates
@@ -67,7 +68,7 @@ class AddEditTaskPresenter(
     }
 
     private fun createTask(title: String, description: String) {
-        val newTask = Task("", title, description)
+        val newTask = Task(UUID.randomUUID().toString(), title, description)
         if (newTask.isEmpty) {
             addTaskView.showEmptyTaskError()
         } else {

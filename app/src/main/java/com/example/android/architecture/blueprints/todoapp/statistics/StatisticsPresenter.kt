@@ -54,12 +54,12 @@ class StatisticsPresenter(
         val tasks = tasksRepository
                 .getTasks()
                 .flatMap { Flowable.fromIterable(it) }
-        val completedTasks = tasks.filter({ it.completed }).count().toFlowable()
         val activeTasks = tasks.filter({ it.isActive }).count().toFlowable()
+        val completedTasks = tasks.filter({ it.completed }).count().toFlowable()
         val disposable = Flowable
-                .zip(completedTasks,
-                        activeTasks,
-                        BiFunction<Long?, Long?, Pair<Long, Long>>(function = { completed, active -> Pair(completed, active) }))
+                .zip(activeTasks,
+                        completedTasks,
+                        BiFunction<Long?, Long?, Pair<Long, Long>>(function = { active, completed -> Pair(active, completed) }))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally {

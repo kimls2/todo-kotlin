@@ -21,6 +21,7 @@ import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
 import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource
+import com.tspoon.traceur.Traceur
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -41,6 +42,7 @@ class TasksPresenter(private val tasksRepository: TasksRepository, private val t
 
     init {
         tasksView.presenter = this
+        Traceur.enableLogging()
     }
 
     override fun subscribe() {

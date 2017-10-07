@@ -20,17 +20,6 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import java.util.*
 
-/**
- * Immutable model class for a Task.
- * @param title       title of the task
- *
- * @param description description of the task
- *
- * @param id          id of the task
- *
- * @param completed   true if the task is completed, false if it's active
- */
-
 @Entity(tableName = "tasks")
 data class Task constructor(
         @PrimaryKey
@@ -38,10 +27,9 @@ data class Task constructor(
         @ColumnInfo(name = "title") val title: String,
         @ColumnInfo(name = "description") val description: String = "no description",
         @ColumnInfo(name = "completed") var completed: Boolean = false
-) {
+)
 
-//    var isCompleted = false
-
+{
     val titleForList: String
         get() = if (title.isNotEmpty()) title else description
 

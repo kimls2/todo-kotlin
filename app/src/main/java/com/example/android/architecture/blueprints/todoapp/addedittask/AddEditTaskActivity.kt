@@ -40,7 +40,6 @@ class AddEditTaskActivity : DaggerAppCompatActivity() {
         setupActionBar(R.id.toolbar) {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
-//            setTitle(if (addEditTaskPresenter.taskId == null) R.string.add_task else R.string.edit_task)
         }
 
         supportFragmentManager

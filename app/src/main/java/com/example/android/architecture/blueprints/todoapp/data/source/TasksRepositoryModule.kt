@@ -12,12 +12,6 @@ import javax.inject.Singleton
 @Module
 abstract class TasksRepositoryModule {
 
-//    @Singleton
-//    @Binds
-//    fun provideTaskDao(context: Context): TasksDao {
-//        return ToDoDatabase.getInstance(context.applicationContext).taskDao()
-//    }
-
     @Singleton
     @Binds
     @Remote

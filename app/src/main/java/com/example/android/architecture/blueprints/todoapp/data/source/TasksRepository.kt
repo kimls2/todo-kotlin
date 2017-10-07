@@ -21,14 +21,6 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Concrete implementation to load tasks from the data sources into a cache.
- *
- *
- * For simplicity, this implements a dumb synchronisation between locally persisted data and data
- * obtained from the server, by using the remote data source only if the local database doesn't
- * exist or is empty.
- */
 @Singleton
 class TasksRepository @Inject constructor(
         @Remote val tasksRemoteDataSource: TasksDataSource,

@@ -22,10 +22,12 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Concrete implementation of a data source as a db.
  */
+@Singleton
 class TasksLocalDataSource @Inject constructor(context: Context) : TasksDataSource {
 
     private val tasksDao: TasksDao = ToDoDatabase.getInstance(context).taskDao()

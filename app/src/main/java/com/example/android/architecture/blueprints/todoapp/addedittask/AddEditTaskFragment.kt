@@ -96,12 +96,5 @@ class AddEditTaskFragment @Inject constructor() : DaggerFragment(), AddEditTaskC
 
     companion object {
         const val ARGUMENT_EDIT_TASK_ID = "EDIT_TASK_ID"
-
-        fun newInstance(taskId: String?) =
-                AddEditTaskFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(AddEditTaskFragment.ARGUMENT_EDIT_TASK_ID, taskId)
-                    }
-                }
     }
 }

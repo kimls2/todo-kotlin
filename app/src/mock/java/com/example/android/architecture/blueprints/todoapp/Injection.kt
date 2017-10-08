@@ -15,11 +15,7 @@
  */
 package com.example.android.architecture.blueprints.todoapp
 
-import android.content.Context
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
-import com.example.android.architecture.blueprints.todoapp.data.source.local.TasksLocalDataSource
-import com.example.android.architecture.blueprints.todoapp.data.source.remote.TasksRemoteDataSource
 
 /**
  * Enables injection of mock implementations for
@@ -28,9 +24,9 @@ import com.example.android.architecture.blueprints.todoapp.data.source.remote.Ta
  */
 object Injection {
 
-    @JvmStatic
-    fun provideTasksRepository(context: Context): TasksRepository {
-        return TasksRepository.getInstance(TasksRemoteDataSource(),
-                TasksLocalDataSource.getInstance(context))
-    }
+//    @JvmStatic
+//    fun provideTasksRepository(context: Context): TasksRepository {
+//        return TasksRepository.getInstance(TasksRemoteDataSource(),
+//                TasksLocalDataSource.getInstance(context))
+//    }
 }

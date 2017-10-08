@@ -15,7 +15,6 @@
  */
 package com.example.android.architecture.blueprints.todoapp.data.source.local
 
-import android.content.Context
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
 import io.reactivex.Completable
@@ -28,9 +27,9 @@ import javax.inject.Singleton
  * Concrete implementation of a data source as a db.
  */
 @Singleton
-class TasksLocalDataSource @Inject constructor(context: Context) : TasksDataSource {
+class TasksLocalDataSource @Inject constructor(private val tasksDao: TasksDao) : TasksDataSource {
 
-    private val tasksDao: TasksDao = ToDoDatabase.getInstance(context).taskDao()
+//    private val tasksDao: TasksDao = ToDoDatabase.getInstance(context).taskDao()
 
     override fun getTasks(): Flowable<List<Task>> {
         return tasksDao.getTasks()
@@ -93,11 +92,11 @@ class TasksLocalDataSource @Inject constructor(context: Context) : TasksDataSour
         }.subscribeOn(Schedulers.io())
     }
 
-    companion object {
-        private var INSTANCE: TasksLocalDataSource? = null
-
-        @JvmStatic
-        fun getInstance(context: Context) =
-                INSTANCE ?: TasksLocalDataSource(context).apply { INSTANCE = this }
-    }
+//    companion object {
+//        private var INSTANCE: TasksLocalDataSource? = null
+//
+//        @JvmStatic
+//        fun getInstance(context: Context) =
+//                INSTANCE ?: TasksLocalDataSource(context).apply { INSTANCE = this }
+//    }
 }

@@ -21,17 +21,6 @@ import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepo
 import java.util.*
 import javax.inject.Inject
 
-/**
- * Listens to user actions from the UI ([AddEditTaskFragment]), retrieves the data and updates
- * the UI as required.
- * @param taskId ID of the task to edit or null for a new task
- *
- * @param tasksRepository a repository of data for tasks
- *
- * @param addTaskView the add/edit view
- *
- * @param isDataMissing whether data needs to be loaded or not (for config changes)
- */
 class AddEditTaskPresenter @Inject constructor(
         val taskId: String?,
         private val tasksRepository: TasksRepository,
@@ -49,7 +38,7 @@ class AddEditTaskPresenter @Inject constructor(
     }
 
     override fun unSubscribe() {
-//        compositeDisposable.clear()
+
     }
 
     override fun saveTask(title: String, description: String) {

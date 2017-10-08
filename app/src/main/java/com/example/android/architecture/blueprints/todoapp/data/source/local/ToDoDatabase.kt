@@ -17,9 +17,7 @@
 package com.example.android.architecture.blueprints.todoapp.data.source.local
 
 import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
-import android.content.Context
 import com.example.android.architecture.blueprints.todoapp.data.Task
 
 /**
@@ -27,25 +25,23 @@ import com.example.android.architecture.blueprints.todoapp.data.Task
  */
 @Database(entities = arrayOf(Task::class), version = 1, exportSchema = false)
 abstract class ToDoDatabase : RoomDatabase() {
-
     abstract fun taskDao(): TasksDao
-
-    companion object {
-
-        private var INSTANCE: ToDoDatabase? = null
-
-        private val sLock = Any()
-
-        @JvmStatic
-        fun getInstance(context: Context): ToDoDatabase {
-            synchronized(sLock) {
-                return INSTANCE ?: Room.databaseBuilder(context.applicationContext,
-                        ToDoDatabase::class.java, "Tasks.db")
-                        .build().apply {
-                    INSTANCE = this
-                }
-
-            }
-        }
-    }
+//    companion object {
+//
+//        private var INSTANCE: ToDoDatabase? = null
+//
+//        private val sLock = Any()
+//
+//        @JvmStatic
+//        fun getInstance(context: Context): ToDoDatabase {
+//            synchronized(sLock) {
+//                return INSTANCE ?: Room.databaseBuilder(context.applicationContext,
+//                        ToDoDatabase::class.java, "Tasks.db")
+//                        .build().apply {
+//                    INSTANCE = this
+//                }
+//
+//            }
+//        }
+//    }
 }

@@ -1,5 +1,9 @@
 package com.example.android.architecture.blueprints.todoapp.di
 
+import android.app.Application
+import android.arch.persistence.room.Room
+import com.example.android.architecture.blueprints.todoapp.data.source.local.TasksDao
+import com.example.android.architecture.blueprints.todoapp.data.source.local.ToDoDatabase
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -20,12 +24,26 @@ class NetworkModule {
         return OkHttpClient.Builder().build()
     }
 
-    @Provides
     @Singleton
+    @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder().baseUrl("URL")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDb(application: Application): ToDoDatabase {
+        return Room.databaseBuilder(application,
+                ToDoDatabase::class.java, "Tasks.db")
+                .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideTaskDao(toDoDatabase: ToDoDatabase): TasksDao {
+        return toDoDatabase.taskDao()
     }
 }

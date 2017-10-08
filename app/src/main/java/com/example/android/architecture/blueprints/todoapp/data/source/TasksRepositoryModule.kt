@@ -12,11 +12,13 @@ import javax.inject.Singleton
 @Module
 abstract class TasksRepositoryModule {
 
+    @Suppress("unused")
     @Singleton
     @Binds
     @Remote
     abstract fun provideTasksRemoteDataSource(tasksRemoteDataSource: TasksRemoteDataSource): TasksDataSource
 
+    @Suppress("unused")
     @Singleton
     @Binds
     @Local

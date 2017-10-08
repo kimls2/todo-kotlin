@@ -34,7 +34,6 @@ class StatisticsActivity : DaggerAppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     @Inject lateinit var statisticsFragment: StatisticsFragment
-    @Inject lateinit var statisticsPresenter: StatisticsPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

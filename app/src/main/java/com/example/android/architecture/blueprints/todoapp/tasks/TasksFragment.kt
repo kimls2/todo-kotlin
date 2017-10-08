@@ -294,9 +294,4 @@ class TasksFragment @Inject constructor() : Fragment(), TasksContract.View {
         fun onActivateTaskClick(activatedTask: Task)
     }
 
-    companion object {
-
-        fun newInstance() = TasksFragment()
-    }
-
 }
